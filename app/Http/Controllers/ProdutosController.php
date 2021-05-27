@@ -12,10 +12,19 @@ class ProdutosController extends Controller
         return Produto::all();
     }
 
-    public function getBestSellers()
+    /**
+     * @urlParam id integer required Id of the product you're looking for | Id do produto a ser pesquisado Example: 1
+     */
+    public function select(Int $id)
     {
+        return Produto::where('id', $id)->first();
     }
 
+    /**
+     * @bodyParam nome string required Product name | Nome do produto
+     * @bodyParam quantidade integer required Amount in stock | Quantidade em estoque
+     * @bodyParam preco string required Price for the product | Preço do produto
+     */
     public function store(Request $request)
     {
 
@@ -28,6 +37,12 @@ class ProdutosController extends Controller
         return $produto;
     }
 
+    /**
+     * @urlParam produto integer required Id of the product you're updating | Id do produto a ser atualizado No-example
+     * @bodyParam nome string required New product name | Novo nome do produto
+     * @bodyParam quantidade integer required New amount in stock | Nova quantidade em estoque
+     * @bodyParam preco string required New price for the product | Novo preço do produto
+     */
     public function update(Request $request, Produto $produto)
     {
 
@@ -40,6 +55,9 @@ class ProdutosController extends Controller
         return $produto;
     }
 
+    /**
+     * @urlParam produto integer required Id of the product you're removing | Id do produto a ser removido No-example
+     */
     public function remove(Produto $produto)
     {
 
